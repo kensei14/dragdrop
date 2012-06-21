@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<style type="text/css">
+			#dragMeBox { 
+				background-color: #666; 
+				color: white;
+				font-size: 18px;
+				width: 100px; 
+				height: 100px;
+				float: left;
+				padding: 10px;
+				margin: 10px;
+				-moz-user-select: none;
+				-webkit-user-select: none;
+				user-select: none;
+				border: 2px solid #333;
+				border-radius: 10px;
+				-webkit-border-radius: 10px;
+				-moz-border-radius: 10px;
+				font-family: "Georgia", serif;
+				text-align: center;
+			}
+		</style>
+		<script type="text/javascript">
+			function dragStart(ev) {
+			   ev.dataTransfer.effectAllowed = 'move';
+			   ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
+			   ev.dataTransfer.setDragImage(ev.target, 0, 0);
+			   alert(ev.dataTransfer.effectAllowed);
+			   return true;
+			}
+		</script>
+	</head>
+	<body>
+		<center>
+			<div id="dragMeBox" draggable="true" ondragstart="return dragStart(event)">
+			   Drag Me
+			</div>
+			<input type="file" multiple1>
+		</center>
+	</body>
+</html>

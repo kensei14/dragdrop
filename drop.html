@@ -1,0 +1,106 @@
+<html>
+	<head>
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<style type="text/css">
+			img { 
+				height: 100px; 
+				float: left; 
+			}
+			
+			#successMessage {
+			  position: absolute;
+			  z-index: 100;
+			  background: white;
+			  border-style: dashed;
+			  border: 2px solid #333;
+			  -moz-border-radius: 10px;
+			  -webkit-border-radius: 10px;
+			  border-radius: 10px;
+			  -moz-box-shadow: .3em .3em .5em rgba(0, 0, 0, .8);
+			  -webkit-box-shadow: .3em .3em .5em rgba(0, 0, 0, .8);
+			  box-shadow: .3em .3em .5em rgba(0, 0, 0, .8);
+			  padding: 20px;
+			}
+		
+			#dropTargetBox {
+				background-color: white; 
+				color: black;
+				font-size: 18px;
+				float: left;
+				padding: 10px;
+				margin: 10px;
+				-moz-user-select: none;
+				-webkit-user-select: none;
+				user-select: none;
+				border: 2px solid #333;
+				border-radius: 10px;
+				-webkit-border-radius: 10px;
+				-moz-border-radius: 10px;
+				border-style: dashed;
+				width: 200px;
+				height: 200px;
+				font-family: "Georgia", serif;
+				text-align: center;
+			}
+		</style>
+		<script type="text/javascript">
+			$( init );
+
+			function init() {
+			  // Hide the success message
+			  $('#successMessage').hide();
+			  $('#successMessage').css( {
+				left: '580px',
+				top: '250px',
+				width: 0,
+				height: 0
+			  } );
+			}
+
+			function dragEnter(ev) {
+			   ev.preventDefault();
+			   return true;
+			}
+			function dragOver(ev) {
+				return false;
+			}
+			function dragDrop(ev) {
+			   var dragId = ev.dataTransfer.getData("Text");
+			   
+			   $("<div/>").html("<p>You dropped '" + dragId + "' onto Drop Target.</p>").appendTo("#successMessage");
+			   
+				$.getJSON("http://graph.facebook.com/cocacola", function(json) {
+					$("<div/>").html("<b>Facebook Graph API JSON response for http://graph.facebook.com/cocacola</b>:").appendTo("#successMessage");
+					$("<div/>").html("Name: " + json.name).appendTo("#successMessage");
+					$("<div/>").html("Link: " + json.link).appendTo("#successMessage");
+					$("<div/>").html("Likes: " + json.likes).appendTo("#successMessage");
+					$("<div/>").html("Website: " + json.website).appendTo("#successMessage");
+					$("<div/>").html("Founded: " + json.founded).appendTo("#successMessage");
+					$("<img/>").attr("src", json.picture).appendTo("#successMessage");
+				});
+			   
+				ev.stopPropagation();
+			   
+				$('#successMessage').show();
+				$('#successMessage').animate( {
+					left: '380px',
+					top: '200px',
+					width: '600px',
+					height: '300px',
+					opacity: 1
+				} );
+
+			   return false;
+			}
+		</script>
+	</head>
+	<body>
+		<center>
+			<div id="dropTargetBox" ondragenter="return dragEnter(event)" ondragover="return dragOver(event)" ondrop="return dragDrop(event)" >
+				Drop Target
+			</div>
+		</center>
+		<div id="successMessage">
+		</div>
+	</body>
+</html>
