@@ -26,7 +26,6 @@
 			   ev.dataTransfer.effectAllowed = 'move';
 			   ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
 			   ev.dataTransfer.setDragImage(ev.target, 0, 0);
-			   alert(ev.dataTransfer.effectAllowed);
 			   return true;
 			}
 		</script>
@@ -36,7 +35,6 @@
 			<div id="dragMeBox" draggable="true" ondragstart="return dragStart(event)">
 			   Drag Me
 			</div>
-			<input type="file" multiple1>
 		</center>
 	</body>
 </html>
